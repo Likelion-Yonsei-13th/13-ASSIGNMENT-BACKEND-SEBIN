@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+        .form-container {
+            background: #fff;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        textarea,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .btn-submit {
+            display: inline-block;
+            background-color: #ffc107;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out;
+        }
+        .btn-submit:hover {
+            background-color: #e0a800;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h1>상품 수정</h1>
+    <div class="form-container">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="name">상품명</label>
+            <input type="text" name="name" id="name" value="{{ product.name }}" required>
+
+            <label for="description">설명</label>
+            <textarea name="description" id="description" rows="4" required>{{ product.description }}</textarea>
+
+            <label for="price">가격</label>
+            <input type="number" name="price" id="price" value="{{ product.price }}" required>
+
+            <button type="submit" class="btn-submit">수정하기</button>
+        </form>
+        <a href="/shop/{{ product.id }}/" class="btn-back">← 상품 상세로 돌아가기</a>
+    </div>
+{% endblock %}
