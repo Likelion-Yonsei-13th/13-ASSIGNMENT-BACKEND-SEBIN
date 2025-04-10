@@ -20,7 +20,8 @@ def product_create(request):
         Product.objects.create(
             name=name,
             description=description,
-            price=price
+            price=price,
+            user=request.user
         )
         return redirect('/shop')  # 홈으로 리디렉션
 

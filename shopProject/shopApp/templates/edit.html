@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 수정</title>
+{% extends 'base.html' %}
+
+{% block content %}
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -69,8 +66,7 @@
             text-decoration: underline;
         }
     </style>
-</head>
-<body>
+
     <h1>상품 수정</h1>
     <div class="form-container">
         <form method="POST">
@@ -88,5 +84,4 @@
         </form>
         <a href="/shop/{{ product.id }}/" class="btn-back">← 상품 상세로 돌아가기</a>
     </div>
-</body>
-</html>
+{% endblock %}

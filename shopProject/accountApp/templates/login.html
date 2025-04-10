@@ -2,44 +2,32 @@
 
 {% block content %}
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        h1 {
-            margin: 20px 0;
-            color: #333;
-        }
         .form-container {
             background: #fff;
-            max-width: 500px;
+            max-width: 400px;
             margin: 40px auto;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: left;
         }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: bold;
             color: #555;
         }
-        input[type="text"],
-        textarea,
-        input[type="number"] {
+        input {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 14px;
-        }
-        textarea {
-            resize: vertical;
         }
         .btn-submit {
             display: inline-block;
@@ -67,21 +55,28 @@
         }
     </style>
 
-    <h1>상품 추가</h1>
+    <h1>로그인</h1>
     <div class="form-container">
         <form method="POST">
             {% csrf_token %}
-            <label for="name">상품명</label>
-            <input type="text" name="name" id="name" required>
 
-            <label for="description">설명</label>
-            <textarea name="description" id="description" rows="4" required></textarea>
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}
+                    <p style="color:red;">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
 
-            <label for="price">가격</label>
-            <input type="number" name="price" id="price" required>
+            {% if form.non_field_errors %}
+                <div style="color:red;">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-            <button type="submit" class="btn-submit">등록하기</button>
+            <button type="submit" class="btn-submit">로그인</button>
         </form>
-        <a href="/shop" class="btn-back">← 돌아가기</a>
     </div>
 {% endblock %}

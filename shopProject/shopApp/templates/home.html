@@ -70,8 +70,14 @@
     </style>
 </head>
 <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
     <h1>상품 목록</h1>
-    <a href="/shop/create/" class="btn-add">상품 추가</a> <!-- 상품 추가 페이지로 넘어감-->
+    
+    {% if user.is_authenticated %}
+    <a href="/shop/create/" class="btn-add">상품 추가</a>
+    {% endif %}
 
     <div class="product-list">
         {% for product in products %}
@@ -80,12 +86,15 @@
                 <h2>{{ product.name }}</h2>
                 <p>{{ product.description }}</p>
                 <p class="price">{{ product.price|floatformat:0 }} 원</p>
+                <p><small>등록자: {{product.user.nickname}}</small></p>
                 <p><small>등록일: {{ product.created_at|date:"Y-m-d H:i" }}</small></p>
             </div>
         {% empty %}
             <p class="no-products">등록된 상품이 없습니다.</p>
         {% endfor %}
+    
     </div>
+    {% endblock content %}
 </body>
 </html>
 
